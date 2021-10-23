@@ -321,9 +321,49 @@ Clearly we see every measure is a pre-measure, since every $\sigma$-algebra is a
 	A measure $\mu$ defined on the measurable space $(\Omega,\mathcal{F})$ is called \emph{complete} if for any $A \in \mathcal{F}$ with $\mu(A) = 0$, $2^A \subset \mathcal{F}$. In this case, the measure space $(\Omega,\mathcal{F},\mu)$ is called a complete measure space. 
 \end{definition}
 
+\begin{definition}[$\mu$-null set]
+	Given a measure space $(\Omega, \mathcal{F}, \mu)$, a set $A\in  \mathcal{F}$ is called a $\mu$-null set is $\mu(A)=0$.
+\end{definition}
+
+\begin{definition}[extension of a measure space]
+	The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called the extension of the measure space $(\Omega, \mathcal{F}, \mu)$ if $\mathcal{F}\subset\widetilde{\mathcal{F}}$ and $\widetilde{\mu}|_{\mathcal{F}}=\mu$.
+\end{definition}
+
+\begin{proposition}
+	Given a measure space $(\Omega, \mathcal{F}, \mu)$, define
+	\begin{align*}
+		\widetilde{\mathcal{F}}=\{A\cup E\in 2^\Omega\mid A\in\mathcal{F},E\text{ is a subset of a $\mu$-null set} \}
+	\end{align*}
+	and
+	\begin{align*}
+		\widetilde{\mu}:\widetilde{\mathcal{F}}&\longrightarrow[0,+\infty],\\
+		A\cup E&\longmapsto \mu(A).
+	\end{align*}
+Then we have
+\begin{enumerate}[(1)]
+	\item $\widetilde{\mu}$ is well-defined,
+	\item $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is a complete measure space,
+	\item $\widetilde{\mu}$ is the unique measure on $(\Omega, \widetilde{\mathcal{F}})$ that coincides with $\mu$ on $\mathcal{F}$,
+	\item $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is the smallest complete extension of $(\Omega, \mathcal{F}, \mu)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}[completion of a measure space]
+	Given a measure space $(\Omega, \mathcal{F}, \mu)$, define
+	\begin{align*}
+		\widetilde{\mathcal{F}}=\{A\cup E\in 2^\Omega\mid A\in\mathcal{F},E\text{ is a subset of a $\mu$-null set} \}
+	\end{align*}
+	and
+	\begin{align*}
+		\widetilde{\mu}:\widetilde{\mathcal{F}}&\longrightarrow[0,+\infty],\\
+		A\cup E&\longmapsto \mu(A).
+	\end{align*}
+The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called the \emph{completion of $(\Omega, \mathcal{F}, \mu)$}.
+\end{definition}
+
 \begin{definition}[outer measure]
 	A set function $\mu^*:2^\Omega\to[0,+\infty]$  is called a \emph{outer measure} on $\Omega$ if
-	\begin{enumerate}[(a)]
+	\begin{enumerate}[(1)]
 		\item $\mu^*(\varnothing) = 0$;
 		\item $A\subset B\subset\Omega\implies\mu^*(A) \le\mu^*(B)$;
 		\item countable subadditivity: for any countable collection $\{A_{i}\}_{i=1}^{\infty }$ of sets in $2^\Omega$,
@@ -341,15 +381,16 @@ Clearly we see every measure is a pre-measure, since every $\sigma$-algebra is a
 \end{definition}
 
 \begin{proposition}
-	Let $X$ be a set, let $\mu^{*}$ be an outer measure on $X$, and let $\mathcal{M}_{\mu^{*}}$ be the collection of all $\mu^{*}$-measurable subsets of $X$. Then
-	\begin{enumerate}[(a)]
-		\item $\mathcal{M}_{\mu^{*}}$ is a $\sigma$-algebra, and
-		\item the restriction of $\mu^{*}$ to $\mathcal{M}_{\mu^{*}}$ is a measure on $\mathcal{M}_{\mu^{*}}$.
+	Let $\Omega$ be a set, let $\mu^{*}$ be an outer measure on $\Omega$, and let $\mathcal{M}_{\mu^{*}}$ be the collection of all $\mu^{*}$-measurable subsets of $\Omega$. Then
+	\begin{enumerate}[(1)]
+		\item $\mathcal{M}_{\mu^{*}}$ is a $\sigma$-algebra,
+		\item the restriction of $\mu^{*}$ to $\mathcal{M}_{\mu^{*}}$ is a measure on $\mathcal{M}_{\mu^{*}}$,
+		\item $(\Omega, \mathcal{M}_{\mu^{*}}, \mu^{*}|_{\mathcal{M}_{\mu^{*}}})$ is a complete measure space.
 	\end{enumerate}
 \end{proposition}
 
-\begin{definition}
-	Given a pre-measure $\mu_0$ on a semiring $\mathcal{S}\subset2^\Omega$, the \emph{outer measure induced by $\mu_0$} is the set function $\mu_0^*:2^\Omega\to[0,+\infty]$, as
+\begin{definition}[induced outer measure]
+	Given a pre-measure $\mu_0$ on a semialgebra, $\mathcal{S}\subset2^\Omega$, the \emph{outer measure induced by $\mu_0$} is the set function $\mu_0^*:2^\Omega\to[0,+\infty]$, as
 	\[
 	\mu^{*}_0(A) = \inf \left\{\sum_{n=1}^{\infty} \mu_0\left(A_{n}\right):\left\{A_{n}\right\}_{n \geq 1} \subset \mathcal{S}, A \subset \bigcup_{n \geq 1} A_{n}\right\}.
 	\]
@@ -361,7 +402,13 @@ Clearly we see every measure is a pre-measure, since every $\sigma$-algebra is a
 \end{definition}
 
 \begin{theorem}[Carathéodory's extension theorem]
-	Let $\mathcal{R}$ be a ring on $\Omega$, let $\mu_0:\mathcal{R}\to[0,+\infty]$ be a pre-measure and let $\mu_0^*$ be the outer measure induced by $\mu_0$. There exists a measure $\mu:\sigma(\mathcal{R})\to[0, +\infty]$ such that $\mu$ is an extension of $\mu_0$, That is, $\mu|\mathcal{R} =\mu_0$. Moreover, if $\mu_0$ is $\sigma$-finite then the extension $\mu$ is unique and also $\sigma$-finite.
+	Let $\mathcal{C}$ be a semialgebra on $\Omega$, let $\mu_0:\mathcal{C}\to[0,+\infty]$ be a pre-measure and let $\mu_0^*$ be the outer measure induced by $\mu_0$. Then
+	\begin{enumerate}[(1)]
+		\item $\mathcal{C}\subset\mathcal{M}_{\mu^{*}_0}$, where $\mathcal{M}_{\mu^{*}_0}$ denotes the collection of all $\mu^{*}_0$-measurable subsets of $\Omega$,
+		\item $\mu^{*}_0|_{\mathcal{C}}=\mu_0$,
+		\item $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu^{*}|_{\mathcal{M}_{\mu^{*}_0}})$ is a complete measure space. $(\Omega, \sigma(\mathcal{C}), \mu^{*}|_{\sigma(\mathcal{C})})$ is a measure space.
+		\item If $\mu_0$ is $\sigma$-finite then  $\mu^{*}_0|_{\sigma(\mathcal{C})}$ is the unique measure on $(\Omega, \sigma(\mathcal{C}))$ that coincides with $\mu_0$ on $\mathcal{C}$. In this case, $\mu^{*}_0|_{\sigma(\mathcal{C})}$ is also $\sigma$-finite.
+	\end{enumerate}
 \end{theorem}
 
 \begin{definition}[product measure]
