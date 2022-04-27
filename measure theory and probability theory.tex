@@ -39,8 +39,8 @@ If $2^\Omega$ denotes the power set of the set $\Omega$ and a collection of subs
 
 For convenience, let's define some operations on a collection of sets $\mathcal{C}\in 2^{\Omega}$.
 \begin{itemize}
-	\item Given $f:\Sigma\to\Omega$, $f^{-1}(\mathcal{C}):=\{f^{-1}(A):A\in\mathcal{C}\}$,
-	\item Given $B\subset \Omega$, $B\cap \mathcal{C}:=\{B\cap A:A\in\mathcal{C}\}$.
+	\item Given $f:\Sigma\to\Omega$, $f^{-1}(\mathcal{C}):=\{f^{-1}(A)\in\Sigma\mid A\in\mathcal{C}\}$,
+	\item Given $B\subset \Omega$, $B\cap \mathcal{C}:=\{B\cap A\mid A\in\mathcal{C}\}$.
 \end{itemize}
 \begin{definition}[semiring]
 	A nonempty family of sets $\mathcal{S}$ is called a \emph{semiring (of sets)} if the following three statements are true for all sets $A$ and $B$,
@@ -72,8 +72,14 @@ A ring of sets $\mathcal{R}$ is a ring in the context of abstract algebra with t
 		\item $A,B\in \mathcal{S}$ implies $A\cap B\in\mathcal{S}$ 
 		\item $A\in \mathcal{S}$ implies $A^c=\cup_{i=1}^n C_i$, where $\{C_{i}\}_{i=1}^{n}$ is a collection of pairwise disjoint sets in $\mathcal{S}$.
 	\end{enumerate}	
-	Since condition (3) together with $\mathcal{S} \neq \varnothing$ implies that $\varnothing \in \mathcal{S}$, conditions (1) is actually unnecessary.
 \end{definition}
+
+\begin{example}
+	\[
+	\mathcal{C} \equiv\{(a, b]\in\mathbb{R}\mid-\infty \leq a \leq b<\infty\} \cup\{(a, \infty)\in\mathbb{R}\mid-\infty \leq a<\infty\}
+	\]
+	is a semialgebra on $\mathbb{R}$.
+\end{example}
 
 \begin{definition}[algebra\textsuperscript{\#1}]
 	A ring $\mathcal{F}$ defined on $\Omega$ is called an \emph{algebra (of sets)} if it contains $\Omega$. 
@@ -321,6 +327,10 @@ Clearly we see every measure is a pre-measure, since every $\sigma$-algebra is a
 	A measure $\mu$ defined on the measurable space $(\Omega,\mathcal{F})$ is called \emph{complete} if for any $A \in \mathcal{F}$ with $\mu(A) = 0$, $2^A \subset \mathcal{F}$. In this case, the measure space $(\Omega,\mathcal{F},\mu)$ is called a complete measure space. 
 \end{definition}
 
+\begin{definition}[Borel measure]
+	Suppose $\mathcal{B}(\mathbb{S})$ is the Borel $\sigma$-algebra on a topological space $\mathbb{S}$. A \emph{Borel measure} is measure defined on the measurable space $(\mathbb{S},\mathcal{B}(\mathbb{S}))$.
+\end{definition}
+
 \begin{definition}[$\mu$-null set]
 	Given a measure space $(\Omega, \mathcal{F}, \mu)$, a set $A\in  \mathcal{F}$ is called a $\mu$-null set is $\mu(A)=0$.
 \end{definition}
@@ -404,11 +414,17 @@ The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called
 \begin{theorem}[Carathéodory's extension theorem]
 	Let $\mathcal{C}$ be a semialgebra on $\Omega$, let $\mu_0:\mathcal{C}\to[0,+\infty]$ be a pre-measure and let $\mu_0^*$ be the outer measure induced by $\mu_0$. Then
 	\begin{enumerate}[(1)]
-		\item $\mathcal{C}\subset\mathcal{M}_{\mu^{*}_0}$, where $\mathcal{M}_{\mu^{*}_0}$ denotes the collection of all $\mu^{*}_0$-measurable subsets of $\Omega$,
+		\item $\mathcal{C}\subset\sigma(\mathcal{C})\subset\mathcal{M}_{\mu^{*}_0}$, where $\mathcal{M}_{\mu^{*}_0}$ denotes the collection of all $\mu^{*}_0$-measurable subsets of $\Omega$,
 		\item $\mu^{*}_0|_{\mathcal{C}}=\mu_0$,
-		\item $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu^{*}|_{\mathcal{M}_{\mu^{*}_0}})$ is a complete measure space. $(\Omega, \sigma(\mathcal{C}), \mu^{*}|_{\sigma(\mathcal{C})})$ is a measure space.
-		\item If $\mu_0$ is $\sigma$-finite then  $\mu^{*}_0|_{\sigma(\mathcal{C})}$ is the unique measure on $(\Omega, \sigma(\mathcal{C}))$ that coincides with $\mu_0$ on $\mathcal{C}$. In this case, $\mu^{*}_0|_{\sigma(\mathcal{C})}$ is also $\sigma$-finite.
+		\item $(\Omega, \sigma(\mathcal{C}), \mu_0^{*}|_{\sigma(\mathcal{C})})$ is a measure space. $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu_0^{*}|_{\mathcal{M}_{\mu^{*}_0}})$ is a complete measure space, 
+		\item If $\mu_0$ is $\sigma$-finite, then
+		\begin{enumerate}[(i)]
+			\item $\mu^{*}_0|_{\sigma(\mathcal{C})}$ is the unique measure on $(\Omega, \sigma(\mathcal{C}))$ that coincides with $\mu_0$ on $\mathcal{C}$. In this case, $\mu^{*}_0|_{\sigma(\mathcal{C})}$ is also $\sigma$-finite,
+			\item $(\Omega, \mathcal{M}_{\mu_0^{*}}, \mu_0^{*}|_{\mathcal{M}_{\mu^{*}_0}})$ is the completion of $(\Omega, \sigma(\mathcal{C}), \mu_0^{*}|_{\sigma(\mathcal{C})})$,
+			\item $\mu^{*}_0|_{\mathcal{M}_{\mu^{*}_0}}$ is the unique measure on $(\Omega, \mathcal{M}_{\mu^{*}_0})$ that coincides with $\mu_0$ on $\mathcal{C}$.
+		\end{enumerate}
 	\end{enumerate}
+	For simplicity, $(\Omega, \sigma(\mathcal{C}), \mu_0^{*}|_{\sigma(\mathcal{C})})$ and $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu_0^{*}|_{\mathcal{M}_{\mu^{*}_0}})$ can be denoted as $(\Omega, \sigma(\mathcal{C}), \mu_0^{*})$ and $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu_0^{*})$.
 \end{theorem}
 
 \begin{definition}[product measure]
@@ -434,10 +450,21 @@ The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called
 	can be uniquely extended to a probability measure $\mathrm{P}$ on the product measurable space $\left(\prod_{i\in T}\Omega_i,\bigotimes_{i\in T}\mathcal{F}_i\right)$. The \emph{product probability space} of $\{(\Omega_i,\mathcal{F}_i,\mathrm{P}_i)\}_{i\in T}$ is defined as $\left(\prod_{i\in T}\Omega_i,\bigotimes_{i\in T}\mathcal{F}_i,\mathrm{P}\right)$.
 \end{definition}
 
-\begin{example}[Borel measure on $\mathbb{R}^n$]
-	content...
-\end{example}
-
+\subsection{Lebesgue-Stieltjes measure}
+\begin{definition}[Lebesgue-Stieltjes measure on $\mathbb{R}$]
+ Given nondecreasing function $F: \mathbb{R} \rightarrow \mathbb{R}$ and semialgebra
+ \[
+ \mathcal{C} \equiv\{(a, b]\in\mathbb{R}\mid-\infty \leq a \leq b<\infty\} \cup\{(a, \infty)\in\mathbb{R}\mid-\infty \leq a<\infty\}
+ \]
+ we can define a pre-measure $\mu_F$ on $\mathcal{C}$ as follows
+ \[
+	\begin{aligned}
+	\mu_{F}((a, b]) &=F(b+)-F(a+), \\
+	\mu_{F}((a, \infty)) &=F(\infty)-F(a+).
+	\end{aligned}
+ \]
+ The measure space $\left(\mathbb{R}, \mathcal{M}_{\mu_{F}^{*}}, \mu_{F}^{*}\right)$ is called a \emph{Lebesgue-Stieltjes measure space} and $\mu_{F}^{*}$ is the \emph{Lebesgue-Stieltjes measure} generated by $F$.
+\end{definition}
 
 \chapter{Integration}
 Assume that all the functions in this chapter are from $\Omega$ to $\mathbb{R}$.
@@ -543,6 +570,15 @@ is a linear space.
     For simplicity, we can identify $f$ with its equivalence class $f+\mathcal{N}$.
 \end{definition}
 
+\begin{theorem}[Hölder's inequality]
+	Let $(\Omega, \Sigma, \mu)$ be a measure space and let $p, q \in[1, \infty]$ with $1 / p+1 / q=1$. Then for all measurable real- or complex-valued functions $f$ and $g$ on $\Omega$,
+\[
+\|f g\|_{1} \leq\|f\|_{p}\|g\|_{q}
+\]
+If, in addition, $p, q \in(1, \infty)$ and $f \in L^{p}(\Omega, \Sigma, \mu)$ and $g \in L^{q}(\Omega, \Sigma, \mu)$, then Hölder's inequality becomes an equality if and only if $|f|^{p}$ and $|g|^{q}$ are linearly dependent in $L^{1}(\Omega, \Sigma, \mu)$, meaning that there exist real numbers $\alpha, \beta \geq 0$, not both of them zero, such that $\alpha|f|^{p}=\beta|g|^{q}$ $\mu$-almost everywhere.
+\end{theorem}
+
+The numbers $p$ and $q$ above are said to be Hölder conjugates of each other. 
 
 \section{Convergence of measurable function}
 \begin{definition}[measurable function]
