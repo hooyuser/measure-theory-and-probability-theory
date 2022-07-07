@@ -1,0 +1,6 @@
+*
+!*/
+
+!*.tex
+!.gitignore
+!.github/
