@@ -11,7 +11,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: ${{ TEX_FILE_NAME }}.tex
+          root_file: ${{ env.TEX_FILE_NAME }}.tex
       - name: Delete old Release
         uses: actions/github-script@v5
         with:
@@ -30,6 +30,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: latest version
-          body: Latest version of `${{ TEX_FILE_NAME }}.pdf`
+          body: Latest version of `${{ env.TEX_FILE_NAME }}.pdf`
           tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: ${{ TEX_FILE_NAME }}.pdf
+          files: ${{ env.TEX_FILE_NAME }}.pdf
