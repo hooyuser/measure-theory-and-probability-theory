@@ -1,6 +1,7 @@
-*
-!*/
-
-!*.tex
-!.gitignore
-!.github/
+*.aux
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.toc
+*.thm
