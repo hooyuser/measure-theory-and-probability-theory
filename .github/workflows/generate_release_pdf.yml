@@ -1,5 +1,7 @@
 name: Generate Release PDF
 on: [push]
+env:
+  TEX_FILE_NAME: measure_theory_and_probability_theory
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -9,7 +11,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: measure_theory_and_probability_theory.tex
+          root_file: $TEX_FILE_NAME.tex
       - name: Delete old Release
         uses: actions/github-script@v5
         with:
@@ -28,6 +30,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: latest version
-          body: Latest version of `measure_theory_and probability_theory.pdf`
+          body: Latest version of `$TEX_FILE_NAME.pdf`
           tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: measure_theory_and probability_theory.pdf
+          files: $TEX_FILE_NAME.pdf
