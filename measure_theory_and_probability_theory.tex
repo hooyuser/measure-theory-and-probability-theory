@@ -19,6 +19,7 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{lemma}{Lemma}[section]
 \theoremstyle{nonumberplain}
@@ -26,6 +27,9 @@
 \theorembodyfont{\normalfont}
 \theoremsymbol{\\\rightline{$\square$}}
 \newtheorem{proof}{Proof.}
+
+\DeclareMathOperator*\lowlim{\underline{lim}}
+\DeclareMathOperator*\uplim{\overline{lim}}
 % Start the document
 \begin{document}
 \begin{center}
@@ -305,21 +309,34 @@ In particular, $\mathcal{B}\left(\mathbb{R}^{d}\right)=(\mathcal{B}(\mathbb{R}))
 	Suppose $(\Omega,\mathcal{F},\mu)$ is a measure space. 
 	\begin{enumerate}[(i)]
 		\item Monotonicity: If $A,B\in\mathcal{F}$ and $A\subset B$, then $\mu(A)\le \mu(B)$;
-		\item Subadditivity: For any measurable sets $\{A_{i}\}_{i=1}^{\infty}$ in $\mathcal{F}$,
+		\item Subadditivity: For any measurable sets $\{A_{n}\}_{n=1}^{\infty}$ in $\mathcal{F}$,
 		$$
-		\mu\left(\bigcup_{i=1}^{\infty} A_{i}\right) \leq \sum_{i=1}^{\infty} \mu\left(A_{i}\right)
+		\mu\left(\bigcup_{n=1}^{\infty} A_{n}\right) \leq \sum_{n=1}^{\infty} \mu\left(A_{n}\right)
 		$$
-		\item Continuity from below: If $\{A_{i}\}_{i=1}^{\infty}$ is a collection of sets in $\mathcal{F}$ that are increasing (meaning that $A_{1} \subset A_{2} \subset A_{3} \subset \cdots$ ) then the union of the sets $A_{n}$ is measurable and
+		\item Continuity from below: If $\{A_{n}\}_{n=1}^{\infty}$ is a collection of sets in $\mathcal{F}$ that are increasing (meaning that $A_{1} \subset A_{2} \subset A_{3} \subset \cdots$ ) then the union of the sets $A_{n}$ is measurable and
 		$$
-		\mu\left(\bigcup_{i=1}^{\infty} A_{i}\right)=\lim _{i \rightarrow \infty} \mu\left(A_{i}\right)=\sup _{i \geq 1} \mu\left(A_{i}\right);
+		\mu\left(\bigcup_{n=1}^{\infty} A_{n}\right)=\mu\left(\lim_{n\to\infty} A_{n}\right)=\lim_{n \rightarrow \infty} \mu\left(A_{n}\right)=\sup_{n\geq 1} \mu\left(A_{n}\right);
 		$$
-		\item Continuity from above: If $\{A_{i}\}_{i=1}^{\infty}$ is a collection of sets in $\mathcal{F}$ that are decreasing (meaning that $A_{1} \supset A_{2} \supset A_{3} \supset \cdots$ ) then the intersection of the sets $A_{n}$ is measurable. Furthermore, if at least one of the $A_{n}$ has finite measure then
+		\item Continuity from above: If $\{A_{n}\}_{n=1}^{\infty}$ is a collection of sets in $\mathcal{F}$ that are decreasing (meaning that $A_{1} \supset A_{2} \supset A_{3} \supset \cdots$ ) then the intersection of the sets $A_{n}$ is measurable. Furthermore, if at least one of the $A_{n}$ has finite measure then
 		$$
-		\mu\left(\bigcap_{i=1}^{\infty} A_{i}\right)=\lim _{i \rightarrow \infty} \mu\left(A_{i}\right)=\inf _{i \geq 1} \mu\left(A_{i}\right).
+		\mu\left(\bigcap_{n=1}^{\infty} A_{n}\right)=\mu\left(\lim_{n\to\infty} A_{n}\right)=\lim_{n \rightarrow \infty} \mu\left(A_{n}\right)=\inf_{n \geq 1} \mu\left(A_{n}\right).
 		$$
 	\end{enumerate}
 \end{proposition}
 
+\begin{corollary}
+	Suppose $(\Omega,\mathcal{F},\mu)$ is a measure space. 
+	\begin{enumerate}
+		\item If $\{A_{n}\}_{n=1}^{\infty}$ is a collection of sets in $\mathcal{F}$, then 
+		$$
+		\mu\left(\lowlim_{n\to\infty} A_{n}\right)=\lim_{n \rightarrow \infty} \mu\left(\bigcap_{k=n}^\infty A_{k}\right)\le \lowlim_{n\to\infty} \mu\left(A_{n}\right);
+		$$
+		\item If $\{A_{n}\}_{n=1}^{\infty}$ is a collection of sets in $\mathcal{F}$, and $\mu(A_{n})$ is finite for all $n\ge 1$,
+		$$
+		\mu\left(\uplim_{n\to\infty} A_{n}\right)=\lim_{n \rightarrow \infty} \mu\left(\bigcup_{k=n}^\infty A_{k}\right)\ge \uplim_{n\to\infty} \mu\left(A_{n}\right).
+		$$
+	\end{enumerate}
+\end{corollary}
 
 \begin{definition}[pre-measure]
 	Let $\mathcal{S}$ be a semiring on $\Omega$. A set function $\mu_0:\mathcal{S}\to[0,+\infty]$  is called a \emph{pre-measure} if
@@ -621,11 +638,59 @@ In this section, we focus on a sort of special measurable functions:
 \[
 f\colon (\Omega,\Sigma )\rightarrow (\mathbb{R},\mathcal{B}(\mathbb{R}) ).
 \]   
+
+\begin{definition}[almost everywhere convergence]
+	$\left\{f_{n}\right\}_{n \geq 1}$ converges to $f$ almost everywhere $(\mu)$, denoted by $f_{n} \rightarrow f$ a.e. $(\mu)$, if there exists a set $B$ in $\mathcal{F}$ such that $\mu(B)=0$ and
+	$$
+	\lim _{n \rightarrow \infty} f_{n}(\omega)=f(\omega) \quad \text { for all } \quad \omega \in B^{c} .
+	$$
+\end{definition}
+
 \begin{definition}[convergence in measure]
 	Let $f,f_{n}\ (n\in {\mathbb  N}):\Omega\to {\mathbb  R}$ be measurable functions on a measure space $(\Omega,\Sigma ,\mu )$. The sequence $ f_{n}$ is said to converge in measure to $f$ if for every $\varepsilon >0$,
 	
 	$$\lim_{{n\to \infty }}\mu \left(\{\omega\in \Omega:|f(\omega)-f_{n}(\omega)|\geq \varepsilon \}\right)=0,$$
 \end{definition}
+
+\begin{proposition}
+	Suppose $(\Omega,\mathcal{F},\mu)$ is a measure space.
+	\begin{enumerate}
+		\item If $\mu(\Omega)<\infty$, then $f_n\xrightarrow{\text{as}}f\implies f_n\xrightarrow{\mu}f$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item 
+		Since $f_n\xrightarrow{\text{as}}f$, there exists a set $B\in\mathcal{F}$ such that $\mu(B)=0$ and
+		\[
+			\omega\in B^c\implies\forall\varepsilon>0,\exists N>0,\forall n>N,|f(\omega)-f_n(\omega)|<\varepsilon.
+		\]
+		Let 
+		\[
+			A_n^\varepsilon = \{\omega\in \Omega:|f(\omega)-f_{n}(\omega)|\geq \varepsilon \}.
+		\]
+		Note that
+		\[
+			0\le\lowlim_{n\to\infty}\mu\left(A_{n}^\varepsilon\right)\le\uplim_{n\to\infty} \mu\left(A_{n}^\varepsilon\right)\le\mu\left(\uplim_{n\to\infty} A_{n}^\varepsilon\right).
+		\]
+		It is sufficient to show that for all $\varepsilon>0$,
+		\[
+			\mu\left(\uplim_{n\to\infty} A_{n}^\varepsilon\right)=0.
+		\]
+		Given any $\varepsilon>0$, we have
+		\[
+			\omega\in\uplim_{n\to\infty} A_{n}^\varepsilon\iff\forall n\ge1,\exists k\ge n,|f(\omega)-f_{n}(\omega)|\geq \varepsilon\implies\omega\notin B^c\implies \omega \in B.
+		\]
+		Hence for any $\varepsilon>0$,
+		\[
+			\uplim_{n\to\infty} A_{n}^\varepsilon\subset B,
+		\]
+		which implies 
+		\[
+			\mu\left(\uplim_{n\to\infty} A_{n}^\varepsilon\right)=0.
+		\]
+	\end{enumerate}
+\end{proof}
 
 \chapter{Differentiation}
 
