@@ -30,6 +30,9 @@
 
 \DeclareMathOperator*\lowlim{\underline{lim}}
 \DeclareMathOperator*\uplim{\overline{lim}}
+
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
+
 % Start the document
 \begin{document}
 \begin{center}
@@ -488,6 +491,8 @@ The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called
 	For simplicity, $(\Omega, \sigma(\mathcal{C}), \mu_0^{*}|_{\sigma(\mathcal{C})})$ and $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu_0^{*}|_{\mathcal{M}_{\mu^{*}_0}})$ can be denoted as $(\Omega, \sigma(\mathcal{C}), \mu_0^{*})$ and $(\Omega, \mathcal{M}_{\mu^{*}_0}, \mu_0^{*})$.
 \end{theorem}
 
+\subsection{Product Measure}
+
 \begin{definition}[product measure]
 	Let $(\Omega_1,\mathcal{F}_1,\mu_1)$ and $(\Omega_2,\mathcal{F}_2,\mu_2)$ be two measure spaces. 
 	A measure $\mu$ on the measurable space $(\Omega_1\times\Omega_2,\mathcal{F}_1\otimes\mathcal{F}_2)$ is said to be a \emph{product measure} of $\mu_1$ and $\mu_2$ if it satisfies the property
@@ -509,6 +514,37 @@ The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called
 	\prod_{i\in T}B_i&\longmapsto\prod_{i\in T: \mathrm{P}_i(B_i)<1}\mathrm{P}_i\left(B_i\right)
 	\end{align*}
 	can be uniquely extended to a probability measure $\mathrm{P}$ on the product measurable space $\left(\prod_{i\in T}\Omega_i,\bigotimes_{i\in T}\mathcal{F}_i\right)$. The \emph{product probability space} of $\{(\Omega_i,\mathcal{F}_i,\mathrm{P}_i)\}_{i\in T}$ is defined as $\left(\prod_{i\in T}\Omega_i,\bigotimes_{i\in T}\mathcal{F}_i,\mathrm{P}\right)$.
+\end{definition}
+
+\begin{theorem}[Tonelli's theorem]
+	Let $(\Omega_1,\mathcal{F}_1,\mu_1)$ and $(\Omega_2,\mathcal{F}_2,\mu_2)$ be two $\sigma$-finite measure spaces. Let $\mu=\mu_1\times\mu_2$ be the product measure of $\mu_1$ and $\mu_2$. Then for any $\mathcal{F}_1\otimes \mathcal{F}_2$-measurable function $f:\Omega_1\times\Omega_2\to[0,+\infty]$, we have
+	\begin{align*}
+		\int_{\Omega_1\times\Omega_2}f\dif\mu &= \int_{\Omega_1}\left(\int_{\Omega_2}f(\omega_1,\omega_2)\dif\mu_2(\omega_2)\right)\dif\mu_1(\omega_1)\\
+		&= \int_{\Omega_2}\left(\int_{\Omega_1}f(\omega_1,\omega_2)\dif\mu_1(\omega_1)\right)\dif\mu_2(\omega_2).
+	\end{align*}
+\end{theorem}
+
+\begin{definition}[measurable semigroup]
+	Let $G$ be a semigroup and $(G, \mathcal{F})$ be a measurable space. We say that $(G, \mathcal{F})$ is a \emph{measurable semigroup} if the multiplication map
+	\begin{align*}
+		m: G\times G&\longrightarrow G,\\
+		(g_1,g_2)&\longmapsto g_1g_2
+	\end{align*}
+	is $\mathcal{F}\otimes\mathcal{F}$-measurable, i.e., $m^{-1}(B)\in\mathcal{F}\otimes\mathcal{F}$ for all $B\in\mathcal{F}$.
+\end{definition}
+
+\begin{definition}[Convolution of measures]
+	Let $(G, \mathcal{F})$ be a measurable semigroup and $\mu_1, \mu_2$ be two $\sigma$-finite measures on $(G, \mathcal{F})$. The \emph{convolution} of $\mu_1$ and $\mu_2$, denoted by $\mu_1*\mu_2$, is defined as the pushforward measure 
+	\[
+	\mu_1*\mu_2:=m_*(\mu_1\times\mu_2).
+	\]
+	More explicitly, for any $A\in\mathcal{F}$, we have
+	\begin{align*}
+	\mu_1*\mu_2(A) &= (\mu_1\times\mu_2)(m^{-1}(A)) \\
+	&= \int_{G\times G}\mathbf{1}_{m^{-1}(A)}\dif(\mu_1\times \mu_2)\\
+	&= \int_{G\times G}\mathbf{1}_{A}(g_1g_2)\dif(\mu_1\times \mu_2)(g_1,g_2)\\
+	&= \int_{G}\int_G\mathbf{1}_{A}(g_1g_2)\dif\mu_1(g_1)\dif\mu_2(g_2).
+	\end{align*}
 \end{definition}
 
 \subsection{Lebesgue-Stieltjes measure}
