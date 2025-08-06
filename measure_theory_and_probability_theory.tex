@@ -11,6 +11,7 @@
 \usepackage{bigints}
 \usepackage[shortlabels]{enumitem}
 \usepackage{mleftright}
+\usepackage{stmaryrd}
 
 \newcommand\expt[1]{\mathrm{E}\mleft[\hspace{1pt}#1\hspace{1pt}\mright]}
 \newcommand\coex[2]{\mathrm{E}\mleft[\hspace{1pt}#1\,\middle|\, #2\hspace{1pt}\mright]}
@@ -27,6 +28,7 @@
 \theorembodyfont{\normalfont}
 \theoremsymbol{\\\rightline{$\square$}}
 \newtheorem{proof}{Proof.}
+\newtheorem{remark}{Remark.}
 
 \DeclareMathOperator*\lowlim{\underline{lim}}
 \DeclareMathOperator*\uplim{\overline{lim}}
@@ -565,17 +567,52 @@ The measure space $(\Omega, \widetilde{\mathcal{F}}, \widetilde{\mu})$ is called
 
 \section{Radon measure}
 \begin{definition}[Radon measure]
-	Let $X$ be a Hausdorff topological space and $\mathcal{B}(X)$ be the Borel $\sigma$-algebra on $X$. A measure $\mu$ on $(X,\mathcal{B}(X))$ is called a \emph{Radon measure} if
+	Let $(X,\tau)$ be a Hausdorff topological space and $\mathcal{B}(X)$ be the Borel $\sigma$-algebra on $X$. A measure $\mu$ on $(X,\mathcal{B}(X))$ is called a \emph{Radon measure} if
 	\begin{enumerate}[(1)]
-		\item (inner regularity) for any $B\in\mathcal{B}(X)$,
+		\item (locally finite) for any $x\in X$, there exists a neighborhood $U$ of $x$ such that $\mu(U)<\infty$.
+		\item (inner regularity for Borel sets) for any $B\in\mathcal{B}(X)$,
 		\[
 		\mu(B)=\sup\{\mu(K):K\subseteq B,K\text{ is compact}\};
 		\]
-		\item (locally finite) for any $x\in X$, there exists a neighborhood $U$ of $x$ such that $\mu(U)<\infty$.
+	
 	\end{enumerate}
 \end{definition}
+\begin{remark}
+	In some literature, we define Radon measure as a measure $m$ on $(X,\mathcal{B}(X))$ that satisfies the following conditions:
+	\begin{enumerate}[(1$'$)]
+		\item (locally finite) for any $x\in X$, there exists a neighborhood $U$ of $x$ such that $m(U)<\infty$.
+		\item (inner regularity for open sets) for any $U\in\tau$,
+		\[
+		m(U)=\sup\{m(K):K\subseteq U,K\text{ is compact}\};
+		\]
+		\item (outer regularity for Borel sets) for any $B\in\mathcal{B}(X)$,
+		\[
+		m(B)=\inf\{m(U):U\supseteq B,\;U\text{ is open}\}.
+		\]
+	\end{enumerate}
+	Let's call the Borel measures that satisfy (1) and (2) \emph{type-1 Radon measures} and the Borel measures that satisfy (1$'$), (2$'$) and (3$'$) \emph{type-2 Radon measures}. There is a bijection between these two classes of Radon measures, \begin{align*}
+		\{\text{type-1 Radon measures on }(X,\mathcal{B}(X))\}&\stackrel{\sim}{\longrightarrow}\{\text{type-2 Radon measures on }(X,\mathcal{B}(X))\}\\
+		\mu &\longmapsto \left(B \longmapsto \inf\left\{\mu(U):U \supseteq B, U \text{ is open}\right\}\right)\\
+		(B \longmapsto \sup\left\{m(B') : B' \subseteq B, B' \text{ is Borel}, m(B')\text{ is finite}\right\})& \longmapsfrom m
+	\end{align*}
+\end{remark}
 
 If $m$ is locally finite, then it follows that $m$ is finite on compact sets, and for locally compact Hausdorff spaces, the converse holds, too. Thus, in this case, local finiteness may be equivalently replaced by finiteness on compact subsets.
+
+\begin{proposition}{}
+	Let $(X,\tau)$ be a locally compact Hausdorff topological space and $\mathcal{B}(X)$ be the Borel $\sigma$-algebra on $X$. Then a measure $\mu$ on $(X,\mathcal{B}(X))$ is a Radon measure if and only if it satisfies the following conditions:
+	\begin{enumerate}[(1)]
+		\item $\mu$ is finite on all compact subsets of $X$.
+		\item (inner regularity for open sets) for any open set $U\in \tau$,
+		\[
+		\mu(U)=\sup\{\mu(K):K\subseteq U,\;K\text{ is compact}\};
+		\]
+		\item (outer regularity for Borel sets) for any $B\in\mathcal{B}(X)$,
+		\[
+		\mu(B)=\inf\{\mu(U):U\supseteq B,\;U\text{ is open}\}.
+		\]
+	\end{enumerate}
+\end{proposition}
 
 
 
